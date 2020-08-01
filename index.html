@@ -6,29 +6,36 @@
         <title>Video test</title>
         <link rel="stylesheet" href="https://vjs.zencdn.net/7.4.1/video-js.css" />
         <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
             video {
-                position: relative;
+                position: absolute;
+                left: 0;
+                top: 0;
                 width: 100%;
                 height: 100%;
             }
         </style>
     </head>
     <body>
-        <p>
-            <video id="example-video" class="video-js vjs-default-skin" controls="controls" width="640" height="360"><br /></video><br />
-            <video id="example-video2" class="video-js vjs-default-skin" controls="controls" width="640" height="360"><br /></video>
-            <script src="https://vjs.zencdn.net/7.4.1/video.min.js"></script>
-            <br />
-            <script>
-                videojs.options.hls.overrideNative = true;
-                videojs.options.html5.nativeAudioTracks = false;
-                videojs.options.html5.nativeTextTracks = false;
-                var player = videojs('example-video');
-                player.src('https://aws-vue-upload.s3.ap-northeast-2.amazonaws.com/rabbit.m3u8');
+        <div class="videoWrap">
+            <video id="example-video" class="video-js vjs-default-skin" controls="controls" width="640" height="360"></video>
+        </div>
+        <div class="videoWrap">
+            <video id="example-video2" class="video-js vjs-default-skin" controls="controls" width="640" height="360"></video>
+        </div>
+        <script src="https://vjs.zencdn.net/7.4.1/video.min.js"></script>
+        <script>
+            videojs.options.hls.overrideNative = true;
+            videojs.options.html5.nativeAudioTracks = false;
+            videojs.options.html5.nativeTextTracks = false;
+            var player = videojs('example-video', { autoplay: 'any' });
+            player.src('https://aws-vue-upload.s3.ap-northeast-2.amazonaws.com/rabbit.m3u8');
 
-                var player2 = videojs('example-video2');
-                player2.src('https://aws-vue-upload.s3.ap-northeast-2.amazonaws.com/hasashin.m3u8');
-            </script>
-        </p>
+            var player2 = videojs('example-video2', { autoplay: 'any' });
+            player2.src('https://aws-vue-upload.s3.ap-northeast-2.amazonaws.com/hasashin.m3u8');
+        </script>
     </body>
 </html>

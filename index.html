@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Video test</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.10.2/alt/video-js-cdn.css" rel="stylesheet" />
         <style>
             * {
                 margin: 0;
@@ -12,8 +11,9 @@
             }
             .videoWrap {
                 position: relative;
-                width: 100%;
+                width: 100vw;
                 height: 100vh;
+                background: black;
             }
             #video {
                 position: absolute;
@@ -23,22 +23,32 @@
         </style>
     </head>
     <body>
-        <input type="hidden" id="url" style="width: 100%;" value="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8" />
-
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
         <div class="videoWrap">
-            <video id="video" class="video-js vjs-default-skin" preload="none" crossorigin="true" controls width="640" height="268"></video>
+            <video id="video" loop></video>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.10.2/video.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/3.0.2/videojs-contrib-hls.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#video').html("<source src='" + $('#url').val() + "' type='application/x-mpegURL'>");
-                var ply = videojs('video');
-                setTimeout(function () {
-                    ply.play();
-                }, 1000);
-            });
+            var video = document.getElementById('video');
+            var videoSrc = 'https://aws-vue-upload.s3.ap-northeast-2.amazonaws.com/bunny.m3u8';
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    video.muted = 'muted';
+                    video.autoplay = 'autoplay';
+                    video.playsinline = 'true';
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = videoSrc;
+                video.addEventListener('loadedmetadata', function () {
+                    video.muted = 'muted';
+                    video.autoplay = 'autoplay';
+                    video.playsinline = 'true';
+                    video.play();
+                });
+            }
         </script>
     </body>
 </html>

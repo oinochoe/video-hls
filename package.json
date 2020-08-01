@@ -1,0 +1,26 @@
+{
+    "name": "video-hls",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "@ffmpeg-installer/ffmpeg": "^1.0.20",
+        "ffmpeg": "0.0.4",
+        "fluent-ffmpeg": "^2.1.2",
+        "fs-js": "^1.0.6"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/oinochoe/video-hls.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/oinochoe/video-hls/issues"
+    },
+    "homepage": "https://github.com/oinochoe/video-hls#readme"
+}

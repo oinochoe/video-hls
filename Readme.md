@@ -2,19 +2,20 @@
 
 - ffmpeg -i hasashin.mp4 -b:v 1M -g 60 -hls_time 2 -hls_list_size 0 -hls_segment_size 500000 output.m3u8
 
+# ffmpeg options
 
-# hls_init_time *seconds* (중요)
+## hls_init_time *seconds* (중요)
 초기 대상 세그먼트 길이를 초 단위로 설정합니다.
 기본값은 0입니다.
 첫 번째 m3u8 목록에서 이 시간이 지나면 다음 키 프레임에서 세그먼트가 잘립니다.
 초기 재생 목록이 채워지면 ffmpeg는 hls_time과 동일한 기간에 세그먼트를 자릅니다.
 
-# hls_time *seconds* (중요)
+## hls_time *seconds* (중요)
 대상 세그먼트 길이를 초 단위로 설정합니다.
 기본값은 2입니다.
 이 시간이 지나면 다음 키 프레임에서 세그먼트가 잘립니다.
 
-# hls_list_size *size* (중요)
+## hls_list_size *size* (중요)
 최대 재생 목록 항목 수를 설정합니다.
 0으로 설정하면 목록 파일에 모든 세그먼트가 포함됩니다.
 기본값은 5입니다.
@@ -24,21 +25,21 @@
      또한 -hls_time 1을 사용하면 재생 목록 파일 크기가 크게 늘어납니다.
      Apple 권장 값은 10초이므로 원하는 키 프레임 간격의 배수로 늘려야합니다.
 
-# hls_delete_threshold *size* (중요)
+## hls_delete_threshold *size* (중요)
 hls_flags delete_segments가 세그먼트를 삭제하기 전에 디스크에 보관할 참조되지 않은 세그먼트 수를 설정합니다.
 클라이언트가 최근 재생 목록에서 참조된 세그먼트를 계속 다운로드할 수 있도록하려면 이 값을 늘립니다.
 기본값은 1이며 hls_list_size + 1보다 오래된 세그먼트가 삭제됨을 의미합니다.
 이 뜻은, 결국 사용자가 임의로 이동을 했을 때 다음 세그먼트 빼고는 디스크에서 계속 들고있지 않는다는 의미입니다.
 
-# hls_ts_options *options_list*
+## hls_ts_options *options_list*
 :로 구분 된 key = value 매개 변수 목록을 사용하여 출력 형식 옵션을 설정합니다. :을 포함하는 특수 문자는 이스케이프되어야합니다.
 
-# hls_wrap wrap(deprecated)
+## hls_wrap wrap(deprecated)
 이것은 더 이상 사용되지 않는 옵션입니다.
 대신 hls_list_size 및 hls_flags delete_segments를 사용할 수 있습니다.
 이 옵션은 디스크를 많은 세그먼트 파일로 채우는 것을 방지하고 랩핑할 디스크에 기록되는 최대 세그먼트 파일수를 제한하는 데 유용합니다.
 
-# hls_start_number_source
+## hls_start_number_source
 지정된 소스에 따라 재생목록 시퀀스 번호(#EXT-X-MEDIA-SEQUENCE)를 시작합니다.
 hls_flags single_file이 설정되지 않은 경우 세그먼트 및 자막 파일 이름의 시작 시퀀스 번호 소스도 지정합니다.
 어쨌든 hls_flags append_list가 설정되고 읽기 재생 목록 시퀀스 번호가 지정된 시작 시퀀스 번호보다 크면 해당값이 시작값으로 사용됩니다.
@@ -55,20 +56,20 @@ The start number will be the microseconds since epoch (1970-01-01 00:00:00)
 datetime
 The start number will be based on the current date/time as YYYYmmddHHMMSS. e.g. 20161231235759.
 
-# start_number *number*
+## start_number *number*
 hls_start_number_source 값이 generic이면 지정된 번호에서 재생 목록 시퀀스 번호(#EXT-X-MEDIA-SEQUENCE)를 시작합니다. (이것은 기본 케이스입니다.)
 hls_flags single_file이 설정되지 않은 경우 세그먼트 및 자막 파일 이름의 시작 시퀀스 번호도 지정합니다.
 기본값은 0입니다.
 
-# hls_allow_cache *allowcache*
+## hls_allow_cache *allowcache*
 클라이언트가 미디어 세그먼트를 캐시 할 수 있는지(1) 또는 캐시하면 안되는지 (0) 명시적으로 설정합니다.
 
-# hls_base_url *baseurl*
+## hls_base_url *baseurl*
 재생 목록의 모든 항목에 baseurl을 추가합니다.
 절대 경로가있는 재생 목록을 생성하는데 유용합니다.
 재생 목록 시퀀스 번호는 각 세그먼트에 대해 고유해야하며 순환할 수있는 세그먼트 파일 이름 시퀀스 번호와 혼동하지 않아야합니다 (예 : wrap 옵션이 지정된 경우).
 
-# hls_segment_filename *filename*
+## hls_segment_filename *filename*
 세그먼트 파일 이름을 설정합니다. hls_flags single_file이 설정되지 않은 경우 파일 이름은 세그먼트 번호가있는 문자열 형식으로 사용됩니다.
 
 ```
@@ -84,10 +85,10 @@ ffmpeg -i in.ts -b:v:0 1000k -b:v:1 256k -b:a:0 64k -b:a:1 32k \
 vs0/file_000.ts, vs0/file_001.ts, vs0/file_002.ts, 등등, 그리고 vs1/file_000.ts, vs1/file_001.ts, vs1/file_002.ts 이런식으로 나타나게됩니다.
 
 
-# use_localtime(deprecated)
+## use_localtime(deprecated)
 strftime 옵션과 동일하며 더 이상 사용되지 않습니다.
 
-# strftime
+## strftime
 파일 이름에 strftime()을 사용하여 세그먼트 파일 이름을 localtime으로 확장하십시오.
 세그먼트 번호는 이 모드에서도 사용할 수 있지만 이를 사용하려면 second_level_segment_index hls_flag를 지정해야하며 %%d가 지정자가 됩니다.
 
@@ -96,10 +97,10 @@ ffmpeg -i in.nut -strftime 1 -hls_flags second_level_segment_index -hls_segment_
 ```
 file-20160215-0001.ts, file-20160215-0002.ts 이런식으로 노출됩니다.
 
-# use_localtime_mkdir(deprecated)
+## use_localtime_mkdir(deprecated)
 strftime_mkdir 옵션과 동일하며 더 이상 사용되지 않습니다.
 
-# strftime_mkdir
+## strftime_mkdir
 strftime과 마찬가지로 파일 이름으로 확장 된 모든 하위 디렉토리를 생성합니다
 ```
 ffmpeg -i in.nut -strftime 1 -strftime_mkdir 1 -hls_segment_filename '%Y/%m/%d/file-%Y%m%d-%s.ts' out.m3u8
@@ -108,7 +109,7 @@ ffmpeg -i in.nut -strftime 1 -strftime_mkdir 1 -hls_segment_filename '%Y/%m/%d/f
 이 예에서는 2016/02/15 디렉터리 계층 구조 (존재하지 않는 경우)를 만든 다음 재생목록, out.m3u8 및 세그먼트 파일을 생성합니다.
 2016/02/15/file-20160215-1455569023.ts, 2016/02/15/file-20160215-1455569024.ts 등
 
-# hls_key_info_file *key_info_file*
+## hls_key_info_file *key_info_file*
 세그먼트 암호화를 위해 key_info_file의 정보를 사용 합니다.
 key_info_file의 첫 번째 줄은 재생 목록에 기록된 키 URI를 지정합니다.
 키 URL은 재생 중에 암호화 키에 액세스하는 데 사용됩니다.
@@ -129,21 +130,21 @@ ffmpeg -f lavfi -re -i testsrc -c:v h264 -hls_flags delete_segments \
   -hls_key_info_file file.keyinfo out.m3u8
 ```
 
-# hls_enc *enc*
+## hls_enc *enc*
 AES128 암호화를 활성화(1) 또는 비활성화(0)합니다.
 활성화되면 생성된 모든 세그먼트가 암호화되고 암호화키가 재생 목록 이름.
 키로 저장됩니다.
 
-# hls_enc_key *key*
+## hls_enc_key *key*
 세그먼트를 암호화하는 16바이트 키는 기본적으로 무작위로 생성됩니다.
 
-# hls_enc_key_url *keyurl*
+## hls_enc_key_url *keyurl*
 설정된 경우 재생 목록의 키 파일 이름에 baseurl 대신 keyurl이 추가됩니다.
 
-# hls_enc_iv *iv*
+## hls_enc_iv *iv*
 자동 생성된 세그먼트 대신 모든 세그먼트에 대해 16바이트로 코딩된 16바이트 초기화 벡터.
 
-# hls_segment_type *flags*(중요)
+## hls_segment_type *flags*(중요)
 `mpegts`
 MPEG-2 전송 스트림 형식의 출력 세그먼트 파일. 이것은 모든 HLS 버전과 호환됩니다.
 
@@ -151,11 +152,11 @@ MPEG-2 전송 스트림 형식의 출력 세그먼트 파일. 이것은 모든 H
 MPEG-DASH와 유사한 조각화된 MP4 형식의 출력 세그먼트 파일.
 fmp4 파일은 HLS 버전7 이상에서 사용할 수 있습니다.
 
-# hls_fmp4_init_filename *filename*
+## hls_fmp4_init_filename *filename*
 파일 이름을 조각 파일 헤더 파일로 설정합니다.
 기본 파일 이름은 init.mp4입니다.
 
-# hls_fmp4_init_resend
+## hls_fmp4_init_resend
 매번 m3u8 파일을 새로 고친 후 초기화 파일을 다시 보냅니다. 기본값은 0입니다.
 var_stream_map이 둘 이상의 변형 스트림으로 설정된 경우 파일 이름 패턴에 문자열 "% v"가 포함되어야합니다.
 이 문자열은 생성 된 초기화 파일 이름에서 변형 스트림 인덱스의 위치를 지정합니다.
@@ -163,7 +164,7 @@ var_stream_map이 둘 이상의 변형 스트림으로 설정된 경우 파일 �
 디렉토리 이름에 문자열이 있으면 디렉토리 이름 패턴을 확장 한 후 하위 디렉토리가 생성됩니다.
 이를 통해 하위 디렉터리의 다양한 변형 스트림에 해당하는 init 파일을 만들 수 있습니다.
 
-# hls_flags *flags*
+## hls_flags *flags*
 `single_file`
 이 플래그가 설정되면 muxer는 모든 세그먼트를 단일 MPEG-TS 파일에 저장하고 재생 목록에서 바이트 범위를 사용합니다.
 이 방법으로 생성 된 HLS 재생 목록의 버전 번호는 4입니다.
@@ -183,7 +184,7 @@ ffmpeg -i in.nut -hls_flags single_file out.m3u8
 부동 소수점을 사용하는 대신 재생 목록 파일 세그먼트 정보의 기간 정보를 정수값으로 반올림합니다.
 
 `discont_start`
-재생 목록의 첫 번째 세그먼트 정보 앞에 # EXT-X-DISCONTINUITY 태그를 추가합니다.
+재생 목록의 첫 번째 세그먼트 정보 앞에 ## EXT-X-DISCONTINUITY 태그를 추가합니다.
 
 `omit_endlist`
 재생 목록 끝에 EXT-X-ENDLIST 태그를 추가하지 마십시오.
@@ -235,17 +236,17 @@ ffmpeg -i sample.mpeg \
 그러나 파일 프로토콜과 vod 이외의 유형 (hls_playlist_type)을 가진 재생 목록은 이 플래그와 관계없이 항상 임시 파일에 기록됩니다.
 master_pl_publish_rate 값이 0이 아닌 경우 파일 프로토콜이있는 마스터 재생 목록 파일 (master_pl_name)은이 플래그에 관계없이 항상 임시 파일에 기록됩니다.
 
-# hls_playlist_type *event*
+## hls_playlist_type *event*
 m3u8 헤더에서 #EXT-X-PLAYLIST-TYPE : EVENT를 내보냅니다.
 hls_list_size를 0으로 강제합니다.
 재생 목록만 추가 할 수 있습니다.
 
-# hls_playlist_type *vod*
+## hls_playlist_type *vod*
 m3u8 헤더에서 #EXT-X-PLAYLIST-TYPE : VOD를 내보냅니다.
 hls_list_size를 0으로 강제합니다.
 재생 목록은 변경되지 않아야합니다.
 
-# method
+## method
 주어진 HTTP 메서드를 사용하여 hls 파일을 만듭니다.
 ```
 ffmpeg -re -i in.ts -f hls -method PUT http://example.com/live/out.m3u8
@@ -253,10 +254,10 @@ ffmpeg -re -i in.ts -f hls -method PUT http://example.com/live/out.m3u8
 이 예제는 HTTP PUT 방법을 사용하여 모든 mpegts 세그먼트 파일을 HTTP 서버에 업로드하고 동일한 방법을 사용하여 새로 고침 시간마다 m3u8 파일을 업데이트합니다.
 HTTP 서버는 파일 업로드를 위해 주어진 방법을 지원해야합니다.
 
-# http_user_agent
+## http_user_agent
 HTTP 헤더의 User-Agent 필드를 재정의합니다. HTTP 출력에만 적용됩니다.
 
-# var_stream_map
+## var_stream_map
 오디오, 비디오 및 자막 스트림을 다른 변형 스트림으로 그룹화하는 방법을 지정하는 매핑 문자열입니다.
 변형 스트림 그룹은 공백으로 구분됩니다.
 예상되는 문자열 형식은 "a : 0, v : 0 a : 1, v : 1 ...."과 같습니다.
@@ -298,10 +299,10 @@ ffmpeg -y -i input_with_subtitle.mkv \
  delete_segments+discont_start+split_by_time ./tmp/video.m3u8
 ```
 
-이 예에서는 webvtt 자막 그룹 이름이`subtitle`인 마스터 재생 목록에 TYPE = SUBTITLES 인 # EXT-X-MEDIA 태그를 추가합니다.
+이 예에서는 webvtt 자막 그룹 이름이`subtitle`인 마스터 재생 목록에 TYPE = SUBTITLES 인 ## EXT-X-MEDIA 태그를 추가합니다.
 입력 파일에 최소한 하나의 텍스트 자막 스트림이 있는지 확인하십시오.
 
-# cc_stream_map
+## cc_stream_map
 다른 폐쇄 캡션 그룹 및 해당 속성을 지정하는 맵 문자열입니다.
 자막 스트림 그룹은 공백으로 구분됩니다.
 예상되는 문자열 형식은 "ccgroup :, instreamid :, language : ...."와 같습니다.
@@ -317,17 +318,17 @@ ffmpeg -re -i in.ts -b:v 1000k -b:a 64k -a53cc 1 -f hls \
   -master_pl_name master.m3u8 \
   http://example.com/live/out.m3u8
 ```
-이 예에서는 그룹 이름`cc`, 언어`en`(영어) 및 INSTREAM-ID`CC1`을 사용하여 마스터 재생 목록에 TYPE = CLOSED-CAPTIONS 인 # EXT-X-MEDIA 태그를 추가합니다.
+이 예에서는 그룹 이름`cc`, 언어`en`(영어) 및 INSTREAM-ID`CC1`을 사용하여 마스터 재생 목록에 TYPE = CLOSED-CAPTIONS 인 ## EXT-X-MEDIA 태그를 추가합니다.
 또한 출력 변형 스트림에 대해 그룹 이름이 'cc'인 CLOSED-CAPTIONS 속성을 추가합니다.
 
-# master_pl_name
+## master_pl_name
 주어진 이름으로 HLS 마스터 재생 목록을 만듭니다.
 ```
 ffmpeg -re -i in.ts -f hls -master_pl_name master.m3u8 http://example.com/live/out.m3u8
 ```
 이 예에서는 master.m3u8이라는 이름의 HLS 마스터 재생 목록을 만들고 http://example.com/live/에 게시합니다.
 
-# master_pl_publish_rate
+## master_pl_publish_rate
 지정된 수의 세그먼트 간격 후에 마스터 재생 목록을 반복적으로 게시합니다.
 
 ```
@@ -336,15 +337,15 @@ ffmpeg -re -i in.ts -f hls -master_pl_name master.m3u8 \
 ```
 이 예에서는 master.m3u8이라는 이름의 HLS 마스터 재생 목록을 만들고 30 세그먼트 이후 (예 : 60 초 이후)마다 반복해서 게시합니다.
 
-# http_persistent
+## http_persistent
 지속적인 HTTP 연결을 사용하십시오. HTTP 출력에만 적용됩니다.
 
-# timeout
+## timeout
 소켓 I/O 작업에 대한 시간 제한을 설정합니다. HTTP 출력에만 적용됩니다.
 
-# ignore_io_errors
+## ignore_io_errors
 열기, 쓰기 및 삭제 중 IO 오류를 무시합니다.
 네트워크 출력으로 장기간 실행하는 데 유용합니다.
 
-# headers
+## headers
 사용자 지정 HTTP 헤더를 설정하고 기본 헤더를 재정의 할 수 있습니다. HTTP 출력에만 적용됩니다.

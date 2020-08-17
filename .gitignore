@@ -1,6 +1,4 @@
 /node_modules/
 package-lock.json
 yarn.lock
-/bunny_158/
-/bunny-origin_500000/
-/earth/
+bunny_*

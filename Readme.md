@@ -1,6 +1,10 @@
 # ffmpeg usage
 
-- ffmpeg -i hasashin.mp4 -b:v 1M -g 60 -hls_time 2 -hls_list_size 0 -hls_segment_size 500000 output.m3u8
+- 2020-08-17
+-- ffmpeg -i bunny_158.mp4 -b:v 1M -g 60 -hls_time 0 -hls_list_size 0 -hls_init_time 300 -hls_segment_size 500000 bunny_5mb_test.m3u8
+
+- at first
+-- ffmpeg -i hasashin.mp4 -b:v 1M -g 60 -hls_time 2 -hls_list_size 0 -hls_segment_size 500000 output.m3u8
 
 # ffmpeg options
 
